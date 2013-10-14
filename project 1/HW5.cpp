@@ -229,22 +229,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 		SelectObject(hDC, hBrush);
 		Polyline(hDC, lpPoints, 2);
 
-		//lpPoints[0].x = 181;
-		//lpPoints[0].y = 100;
-		//lpPoints[1].x = 100;
-		//lpPoints[1].y = 159;
-		//lpPoints[2].x = 131;
-		//lpPoints[2].y = 254;
-		//lpPoints[3].x = 231;
-		//lpPoints[3].y = 254;
-		//lpPoints[4].x = 262;
-		//lpPoints[4].y = 159;
-		//SelectObject(hDC, hPen);
-		//Polygon(hDC,lpPoints,5);
-
-		//hBrush = (HBRUSH) GetStockObject(DKGRAY_BRUSH);
-		//SelectObject(hDC, hBrush);
-		//RoundRect(hDC, 50, 120, 100, 200, 15, 15);
 		EndPaint(hWnd, &PtStr);
 		break;
 	case WM_DESTROY:
