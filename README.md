@@ -1,4 +1,4 @@
 visual_cpp
 ==========
-jxzhuge12
-from Zhejiang University
+--jxzhuge12--
+--Zhejiang University--
