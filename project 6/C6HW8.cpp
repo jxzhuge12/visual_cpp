@@ -1,6 +1,5 @@
 #include<windows.h>
 #include<tchar.h>
-#include<malloc.h>
 #include<stdlib.h>
 
 BOOLEAN InitWindowClass(HINSTANCE hInstance, int nCmdShow);
@@ -15,7 +14,7 @@ int size = 0;
 void isfull(int size){
 	int i;
 	if (size == able - 1){
-		POINT* temp = (POINT*) malloc(sizeof(POINT) * able * 2);
+		POINT* temp = (POINT*) malloc(sizeof(POINT) *able * 2);
 		able = able * 2;
 		for (i = 0; i < size; i++){
 			temp[i].x = lpPoints[i].x;
@@ -43,7 +42,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 	HDC hDC;
 	WORD X, Y;
 	PAINTSTRUCT ps;
-	static int i = 2;
+	static int i = 0;
 	RECT clientRect;
 	HFONT hF;
 	wchar_t istr[32];
@@ -61,14 +60,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 			lpPoints[size].y = Y;
 			size++;
 			isfull(size);
+			InvalidateRect(hWnd, NULL, false);
 		}
-		InvalidateRect(hWnd, NULL, false);
 		break;
 	case WM_LBUTTONDOWN:
-		i = 1;
+		i++;
+		i = i % 4;
+		if (i == 3){
+			free(lpPoints);
+			lpPoints = (POINT*) malloc(sizeof(POINT) * 100);
+			able = 100;
+			size = 0;
+			InvalidateRect(hWnd, NULL, true);
+		}
 		break;
 	case WM_LBUTTONUP:
-		i = 2;
+		i++;
+		i = i % 4;
+		if (i == 2)
+			InvalidateRect(hWnd, NULL, false);
 		break;
 	case WM_SIZE:
 		break;
@@ -76,8 +86,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 		hDC = BeginPaint(hWnd, &ps);
 		GetClientRect(hWnd, &clientRect);
 		hPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
-
-		Polyline(hDC, lpPoints, size);
+		if (i == 1)
+			Polyline(hDC, lpPoints, size);
 		if (i == 2){
 			POINT be[2];
 			be[0].x = lpPoints[0].x;
