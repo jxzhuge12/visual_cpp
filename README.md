@@ -53,3 +53,13 @@ project 8
 project 9
 
 通用对话框的创建
+
+project 10
+
+C9HW12
+
+对话框 按钮控件
+
+C9HW13
+
+对话框 滚动条 画椭圆
